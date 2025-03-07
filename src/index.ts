@@ -1,6 +1,7 @@
 import en from "./locale/en";
 import type { Editor, Frame, Frames } from "grapesjs";
-import loadBlocks from './blocks';
+import loadBlocks from "./loadBlocks";
+import loadComponents from "./loadComponents";
 
 export type TailwindDaisyUIPluginOptions = {
   /**
@@ -40,26 +41,24 @@ export default (editor: Editor, opts: TailwindDaisyUIPluginOptions = {}) => {
     },
     ...opts,
   };
-
-  // Add blocks
-  loadBlocks(editor, options);
-
   // Load i18n files
   editor.I18n.addMessages({
     en,
     ...options.i18n,
   });
 
+  // Add DaisyUI Components
+  loadComponents(editor, options);
+
+  // Add blocks
+  loadBlocks(editor, options);
+
   const loadTailwindDaisyUI = async (frame: Frame) => {
     const iframe = frame.view?.getEl();
 
     if (!iframe) return;
 
-    const {
-      daisyUICssCdn,
-      daisyUIThemeCssCdn,
-      tailwindCdn,
-    } = options;
+    const { daisyUICssCdn, daisyUIThemeCssCdn, tailwindCdn } = options;
 
     const script = document.createElement("script");
     script.src = tailwindCdn;

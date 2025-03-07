@@ -1,4 +1,4 @@
-# GrapesJS Tailwind CSS & DaisiUI (WIP)
+# GrapesJS Tailwind CSS & DaisyUI (WIP)
 
 <!-- [DEMO](##)
 > **Provide a live demo of your plugin**
