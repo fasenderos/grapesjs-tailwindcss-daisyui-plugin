@@ -6,11 +6,11 @@
   "author": "Andrea Fassina <fasenderos@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git@github.com:fasenderos/grapesjs-tailwindcss.git"
+    "url": "git@github.com:fasenderos/grapesjs-tailwindcss-daisyui-plugin.git"
   },
-  "homepage": "https://github.com/fasenderos/grapesjs-tailwindcss",
+  "homepage": "https://github.com/fasenderos/grapesjs-tailwindcss-daisyui-plugin",
   "bugs": {
-    "url": "https://github.com/fasenderos/grapesjs-tailwindcss/issues"
+    "url": "https://github.com/fasenderos/grapesjs-tailwindcss-daisyui-plugin/issues"
   },
   "scripts": {
     "build": "rm -rf ./dist && grapesjs-cli build --patch=false",
