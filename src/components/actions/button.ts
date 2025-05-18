@@ -65,7 +65,7 @@ export default (editor: Editor) => {
               for (const o of option.values) {
                 if (typeof o === "string") {
                   options.push(
-                    getTraitSelectOption(o, getI18nName(editor, `traits.${o}`))
+                    getTraitSelectOption(o, getI18nName(editor, `traits.${o}`)),
                   );
                 } else options.push(o);
               }
@@ -86,14 +86,14 @@ export default (editor: Editor) => {
       init() {
         for (const [key, option] of Object.entries(options)) {
           this.on(`change:attributes:${key}`, () =>
-            this.handleAttributeChange(option.values, key, option.prefix)
+            this.handleAttributeChange(option.values, key, option.prefix),
           );
         }
       },
       handleAttributeChange(
         options: string[],
         attribute: string,
-        prefix: string
+        prefix: string,
       ) {
         for (const option of options) this.removeClass(`${prefix}-${option}`);
         const value = this.getAttributes()[attribute];

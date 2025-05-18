@@ -8,14 +8,14 @@ const capitalizeFirstLetter = (str: string) => {
 
 export const getTraitSelectOption = (
   id: string,
-  label?: string
+  label?: string,
 ): TraitOption => {
   return { id, label: label ?? capitalizeFirstLetter(id) };
 };
 
 export const getI18nName = (
   editor: Editor,
-  key: string
+  key: string,
 ): string | undefined => {
   return editor.I18n.t(`${PLUGIN_NAME}.${key}`);
 };
@@ -35,7 +35,7 @@ export const componentFactory = (
   editor: Editor,
   componentId: string,
   html: string,
-  traits: TraitProperties[] = []
+  traits: TraitProperties[] = [],
 ): Component => {
   const domc = editor.DomComponents;
   const id = getId(componentId);

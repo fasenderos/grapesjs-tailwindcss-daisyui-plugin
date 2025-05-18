@@ -1,8 +1,8 @@
-import en from "./locale/en";
+import type { Editor } from "grapesjs";
 import grapesjsTailwindcss from "grapesjs-tailwindcss-plugin";
 import loadBlocks from "./loadBlocks";
 import loadComponents from "./loadComponents";
-import type { Editor } from "grapesjs";
+import en from "./locale/en";
 
 export type TailwindDaisyUIPluginOptions = {
   /**

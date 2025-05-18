@@ -78,8 +78,8 @@ export default (editor: Editor) => {
                       options.push(
                         getTraitSelectOption(
                           o,
-                          getI18nName(editor, `traits.${o}`)
-                        )
+                          getI18nName(editor, `traits.${o}`),
+                        ),
                       );
                     } else options.push(o);
                   }
@@ -108,7 +108,7 @@ export default (editor: Editor) => {
       init() {
         for (const [key, option] of Object.entries(options)) {
           this.on(`change:attributes:${key}`, () =>
-            this.handleAttributeChange(option, key)
+            this.handleAttributeChange(option, key),
           );
         }
       },
@@ -125,7 +125,7 @@ export default (editor: Editor) => {
               type: "select",
               values: option.valueTrue.split(" "),
             },
-            attribute
+            attribute,
           );
         }
       },

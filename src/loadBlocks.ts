@@ -2,8 +2,8 @@ import type { Editor } from "grapesjs";
 import type { TailwindDaisyUIPluginOptions } from "./index";
 
 import { COMPONENTS } from "./constants";
-import { getI18nName, getId } from "./utils";
 import icons from "./icons";
+import { getI18nName, getId } from "./utils";
 
 const getSvgHtml = (svg: HTMLElement) => {
   if (typeof window === "undefined") return "";
@@ -25,7 +25,7 @@ const getDaisyUIBlock = (
   editor: Editor,
   component: {
     [P in keyof typeof COMPONENTS]: (typeof COMPONENTS)[P];
-  }[keyof typeof COMPONENTS]
+  }[keyof typeof COMPONENTS],
 ): BlockOption => {
   const id = getId(component.id);
   const icon = icons[component.id as keyof typeof icons];
@@ -56,7 +56,7 @@ const getDaisyUIBlocks = (editor: Editor) => {
 
 export default (
   editor: Editor,
-  options: Required<TailwindDaisyUIPluginOptions>
+  options: Required<TailwindDaisyUIPluginOptions>,
 ) => {
   const bm = editor.Blocks;
   const blocks = getDaisyUIBlocks(editor);
