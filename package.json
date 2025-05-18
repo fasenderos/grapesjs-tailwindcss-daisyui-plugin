@@ -26,6 +26,9 @@
     "tailwind",
     "css"
   ],
+  "dependencies": {
+    "grapesjs-tailwindcss-plugin": "^0.1.9"
+  },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@release-it/conventional-changelog": "^10.0.0",
@@ -41,8 +44,5 @@
     "LICENSE",
     "README.md",
     "package.json"
-  ],
-  "dependencies": {
-    "grapesjs-tailwindcss-plugin": "^0.1.8"
-  }
+  ]
 }
