@@ -1,7 +1,8 @@
 import en from "./locale/en";
-import type { Editor, Frame, Frames } from "grapesjs";
+import grapesjsTailwindcss from "grapesjs-tailwindcss-plugin";
 import loadBlocks from "./loadBlocks";
 import loadComponents from "./loadComponents";
+import type { Editor } from "grapesjs";
 
 export type TailwindDaisyUIPluginOptions = {
   /**
@@ -21,23 +22,22 @@ export type TailwindDaisyUIPluginOptions = {
    * @default empty-string
    */
   daisyUIThemeCssCdn?: string;
-  /**
-   * URL for fetching Tailwind
-   * @see https://tailwindcss.com/docs/installation/play-cdn
-   * @default https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4
-   */
-  tailwindCdn?: string;
 };
 
 export default (editor: Editor, opts: TailwindDaisyUIPluginOptions = {}) => {
+  // @ts-ignore this is a custom flag
+  if (!editor.__grapesjsTailwindcssPluginLoaded) {
+    grapesjsTailwindcss(editor);
+    // @ts-ignore this is a custom flag
+    editor.__grapesjsTailwindcssPluginLoaded = true; // flag to avoid multiple plugin load
+  }
+
   const options: Required<TailwindDaisyUIPluginOptions> = {
     ...{
       i18n: {},
       // default options
       daisyUICssCdn: "https://cdn.jsdelivr.net/npm/daisyui@5",
       daisyUIThemeCssCdn: "",
-      tailwindCdn: "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4",
-      // tailwindConfig: {},
     },
     ...opts,
   };
@@ -53,46 +53,19 @@ export default (editor: Editor, opts: TailwindDaisyUIPluginOptions = {}) => {
   // Add blocks
   loadBlocks(editor, options);
 
-  const loadTailwindDaisyUI = async (frame: Frame) => {
-    const iframe = frame.view?.getEl();
-
-    if (!iframe) return;
-
-    const { daisyUICssCdn, daisyUIThemeCssCdn, tailwindCdn } = options;
-
-    const script = document.createElement("script");
-    script.src = tailwindCdn;
-
-    const linkCss = [daisyUICssCdn, daisyUIThemeCssCdn];
-    const linkEls: HTMLLinkElement[] = [];
-
-    for (const link of linkCss) {
-      if (link.length) {
-        const linkEl = document.createElement("link");
-        linkEl.rel = "stylesheet";
-        linkEl.type = "text/css";
-        linkEl.href = link;
-        linkEls.push(linkEl);
-      }
+  const addLinkElement = (link: string, iframe: HTMLIFrameElement) => {
+    if (link.length) {
+      const linkEl = document.createElement("link");
+      linkEl.rel = "stylesheet";
+      linkEl.type = "text/css";
+      linkEl.href = link;
+      iframe.contentDocument?.head.appendChild(linkEl);
     }
-
-    // checks iframe is ready before loading Tailwind CSS - issue with firefox
-    const f = setInterval(() => {
-      const doc = iframe.contentDocument;
-      if (doc?.readyState && doc.readyState === "complete") {
-        doc.head.appendChild(script);
-        for (const linkEl of linkEls) {
-          doc.head.appendChild(linkEl);
-        }
-        clearInterval(f);
-      }
-    }, 100);
   };
 
-  editor.Canvas.getModel().on("change:frames", (m, frames: Frames) => {
-    // biome-ignore lint/complexity/noForEach: forEach function overrided by Grapesjs
-    frames.forEach((frame) =>
-      frame.once("loaded", () => loadTailwindDaisyUI(frame))
-    );
+  editor.on("canvas:frame:load:body", ({ el }: { el: HTMLIFrameElement }) => {
+    const { daisyUICssCdn, daisyUIThemeCssCdn } = options;
+    addLinkElement(daisyUICssCdn, el);
+    addLinkElement(daisyUIThemeCssCdn, el);
   });
 };

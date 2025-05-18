@@ -41,5 +41,8 @@
     "LICENSE",
     "README.md",
     "package.json"
-  ]
+  ],
+  "dependencies": {
+    "grapesjs-tailwindcss-plugin": "^0.1.8"
+  }
 }

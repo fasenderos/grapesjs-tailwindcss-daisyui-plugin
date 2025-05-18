@@ -3,6 +3,7 @@ import type { TailwindDaisyUIPluginOptions } from "./index";
 
 import { COMPONENTS } from "./constants";
 import { getI18nName, getId } from "./utils";
+import icons from "./icons";
 
 const getSvgHtml = (svg: HTMLElement) => {
   if (typeof window === "undefined") return "";
@@ -17,6 +18,7 @@ type BlockOption = {
   label: string;
   content: { type: string };
   category: { id: string; label: string };
+  icon?: string;
 };
 
 const getDaisyUIBlock = (
@@ -26,14 +28,16 @@ const getDaisyUIBlock = (
   }[keyof typeof COMPONENTS]
 ): BlockOption => {
   const id = getId(component.id);
+  const icon = icons[component.id as keyof typeof icons];
   return {
     id,
-    label: getI18nName(editor, `components.${component.id}`),
+    label: getI18nName(editor, `components.${component.id}`) ?? "",
     content: { type: id },
     category: {
       id: getId(component.category),
-      label: getI18nName(editor, `categories.${component.category}`),
+      label: getI18nName(editor, `categories.${component.category}`) ?? "",
     },
+    icon,
   };
 };
 
@@ -65,6 +69,7 @@ export default (
         label: block.category.label,
         open: false,
       },
+      media: block.icon,
     });
   }
 };
