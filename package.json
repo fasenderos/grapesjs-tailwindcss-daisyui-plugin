@@ -1,6 +1,6 @@
 {
   "name": "grapesjs-tailwindcss-daisyui-plugin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "GrapesJS Tailwind Plugin with daisyUI components",
   "main": "dist/index.js",
   "author": "Andrea Fassina <fasenderos@gmail.com>",
