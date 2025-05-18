@@ -1,5 +1,7 @@
 # Changelog
 
+## [0.0.3](https://github.com/fasenderos/grapesjs-tailwindcss-daisyui-plugin/compare/v0.0.2...v0.0.3) (2025-05-18)
+
 ## 0.0.2 (2025-05-18)
 
 ### Features
